@@ -2,6 +2,12 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+import { cn } from "@/lib/utils";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import Providers from "@/components/Providers";
+import { Toaster } from "sonner";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -16,7 +22,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body
+        className={cn("relative h-full font-sans antialiased", inter.className)}
+      >
+        <main className="relative min-h-screen flex flex-col">
+          <Providers>
+            <Navbar />
+            <div className="-mt-16 ">{children}</div>
+            <Footer />
+          </Providers>
+        </main>
+        <Toaster position="top-center" richColors />
+      </body>
     </html>
   );
 }
