@@ -11,7 +11,7 @@ import { trpc } from "@/trpc/client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRightIcon, Loader2 } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { ZodError } from "zod";
@@ -25,7 +25,9 @@ const Page = () => {
     resolver: zodResolver(AuthCredentialsValidator),
   });
 
+  const searchParams = useSearchParams();
   const router = useRouter();
+  const origin = searchParams.get("origin");
   const { mutate: signIn, isLoading } = trpc.auth.signIn.useMutation({
     onError: (error) => {
       if (error?.data?.code === "UNAUTHORIZED" || error instanceof ZodError) {

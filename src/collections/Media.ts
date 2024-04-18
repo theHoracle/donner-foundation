@@ -2,7 +2,11 @@ import { CollectionConfig } from "payload/types";
 
 export const Media: CollectionConfig = {
   slug: "media",
-  access: {},
+  access: {
+    read: () => true,
+    delete: ({ req }) => req.user.role === "admin",
+    update: ({ req }) => req.user.role === "admin",
+  },
   admin: {
     hidden: ({ user }) => user.role === "user",
   },

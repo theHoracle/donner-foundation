@@ -10,6 +10,7 @@ export interface Config {
   collections: {
     media: Media;
     users: User;
+    causes: Cause;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -76,6 +77,29 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "causes".
+ */
+export interface Cause {
+  id: string;
+  creator?: (string | null) | User;
+  title: string;
+  description: string;
+  target: number;
+  raisedAmount: number;
+  approved?: ('pending' | 'approved') | null;
+  priceId?: string | null;
+  stripeId?: string | null;
+  images?:
+    | {
+        images: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

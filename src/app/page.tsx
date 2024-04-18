@@ -41,7 +41,12 @@ export default function Home() {
   ];
   return (
     <main className="flex flex-col">
-      <Hero />
+      <Hero
+        heroImage="/flat-lay-paper-hand-holding-heart-with-copy-space.jpeg"
+        heroText="Be a life saver for someone"
+        showButtons={true}
+        topic="Home"
+      />
       <MaxWidthWrapper className="-translate-y-1/2 hidden md:block text-white">
         <div className="flex items-center gap-0 h-64 lg:mx-28 md:mx-0">
           <div className="w-1/3 grid place-items-center px-6 bg-green-500 justify-center h-full">
@@ -67,7 +72,7 @@ export default function Home() {
                 to help with our work
               </p>
               <Link
-                href="/#"
+                href="#volunteer"
                 className={cn(
                   "text-white",
                   buttonVariants({ variant: "link" }),
@@ -106,7 +111,7 @@ export default function Home() {
                 </h2>
               </div>
               <Link
-                href="#"
+                href="/causes"
                 className={cn(
                   buttonVariants({ variant: "link" }),
                   "hidden md:block"
@@ -116,10 +121,10 @@ export default function Home() {
               </Link>
             </div>
             <div>
-              <CauseReel quantity={4} />
+              <CauseReel />
             </div>
             <Link
-              href="#"
+              href="/causes"
               className={cn(
                 buttonVariants({ variant: "link" }),
                 "block md:hidden text-right"
@@ -212,7 +217,7 @@ export default function Home() {
             </div>
             <div>
               <div
-                className="grid grid-cols-2 grid-rows-2 lg:grid-cols-4 gap-x-4 my-10
+                className="grid grid-cols-2 grid-rows-2 lg:grid-rows-1 lg:grid-cols-4 gap-x-4 my-10
               "
               >
                 {team.map((member, index) => {

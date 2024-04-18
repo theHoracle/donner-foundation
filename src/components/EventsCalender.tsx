@@ -87,7 +87,7 @@ const EventsCalender = () => {
                 Location: Online{" "}
               </div>
             </div>
-            <div className="w-full">
+            <div className="w-full md:w-max">
               <div className="flex my-2 items-center gap-1.5">
                 <Heading variant="light" className=" min-w-max">
                   Upcoming events
