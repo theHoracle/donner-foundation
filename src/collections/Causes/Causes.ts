@@ -84,7 +84,7 @@ export const Causes: CollectionConfig = {
       },
     },
     {
-      name: "stripeId",
+      name: "paystackId",
       admin: {
         hidden: true,
       },

@@ -41,7 +41,7 @@ const CauseListing = ({ cause, index }: CauseListingProps) => {
 
   if (cause && isVisible) {
     return (
-      <Link href={`/donate/${cause?.id}`} className="bg-gray-100 rounded-xl">
+      <div className="bg-gray-100 rounded-xl">
         <div className="flex flex-col w-full">
           <ImageSlider urls={validImageUrls} />
           <div className="px-3 py-2.5 flex flex-col gap-3">
@@ -57,12 +57,12 @@ const CauseListing = ({ cause, index }: CauseListingProps) => {
                 </p>
               </div>
             </div>
-            <Link href="#" className={cn(buttonVariants())}>
+            <Link href={`/donate/${cause.id}`} className={cn(buttonVariants())}>
               Donate
             </Link>
           </div>
         </div>
-      </Link>
+      </div>
     );
   }
 };
