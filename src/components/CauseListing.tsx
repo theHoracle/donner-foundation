@@ -8,6 +8,7 @@ import { buttonVariants } from "./ui/button";
 import { Cause } from "@/payload-types";
 import { Skeleton } from "./ui/skeleton";
 import { useEffect, useState } from "react";
+import ProgressBar from "./ProgressBar";
 
 interface CauseListingProps {
   cause: Cause | null;
@@ -16,7 +17,7 @@ interface CauseListingProps {
 const CauseListing = ({ cause, index }: CauseListingProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const validImageUrls = cause?.images
-    ?.map(({ images }) => (typeof images === "string" ? images : images.url))
+    ?.map(({ image }) => (typeof image === "string" ? image : image.url))
     .filter(Boolean) as string[];
 
   console.log("A cause image: ", validImageUrls);
@@ -27,15 +28,7 @@ const CauseListing = ({ cause, index }: CauseListingProps) => {
 
     return () => clearTimeout(timer);
   }, [index]);
-  const progressValue = (function progressBar() {
-    //if raised amt should  be 0 or undefined return 0 progress
-    if (!cause?.raisedAmount || cause?.target === undefined) {
-      return 0;
-    } else {
-      // find percentage to nearest number
-      return Math.round((cause.raisedAmount / cause.target) * 100);
-    }
-  })();
+ 
 
   if (!cause && !isVisible) return <CausePlaceholder />;
 
@@ -46,17 +39,7 @@ const CauseListing = ({ cause, index }: CauseListingProps) => {
           <ImageSlider urls={validImageUrls} />
           <div className="px-3 py-2.5 flex flex-col gap-3">
             <h3 className="font-medium text-sm">{cause.title}</h3>
-            <div>
-              <Progress value={progressValue} className="h-1" />
-              <div className="flex items-center justify-between mx-0 my-1">
-                <p className="text-xs text-muted-foreground">
-                  Raised: ${cause.raisedAmount}
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  Goal: ${cause.target}
-                </p>
-              </div>
-            </div>
+            <ProgressBar raisedAmount={cause.raisedAmount} target={cause.target} />
             <Link href={`/donate/${cause.id}`} className={cn(buttonVariants())}>
               Donate
             </Link>

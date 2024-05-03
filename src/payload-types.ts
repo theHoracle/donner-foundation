@@ -93,12 +93,10 @@ export interface Cause {
   approved?: ('pending' | 'approved') | null;
   priceId?: string | null;
   paystackId?: string | null;
-  images?:
-    | {
-        images: string | Media;
-        id?: string | null;
-      }[]
-    | null;
+  images: {
+    image: string | Media;
+    id?: string | null;
+  }[];
   updatedAt: string;
   createdAt: string;
 }
@@ -110,6 +108,7 @@ export interface Donation {
   id: string;
   _isPaid: boolean;
   user: string | User;
+  amount: number;
   causes: string | Cause;
   updatedAt: string;
   createdAt: string;

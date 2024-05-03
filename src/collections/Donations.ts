@@ -48,6 +48,16 @@ export  const Donations: CollectionConfig = {
 
         },
         {
+            name: 'amount',
+            type: 'number',
+            required: true,
+            access: {
+                read: ({req}) => req.user.role === 'admin',
+                create: () => false,
+                update: () => false
+            },
+        },
+        {
             name: 'causes',
             type: 'relationship',
             relationTo: 'causes',

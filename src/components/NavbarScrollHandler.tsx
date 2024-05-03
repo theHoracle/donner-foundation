@@ -45,7 +45,7 @@ const NavbarScrollHandler = ({ children }: NavbarScrollHandlerProps) => {
       <div className="relative overflow-hidden">
         <div
           className={cn({
-            "absolute inset-0 -z-10 blur-sm bg-slate-500/80 scale-150 transition-all":
+            "absolute inset-0 -z-10 backdrop-blur transition-all border-b border-gray-100":
               isScrolledDown,
           })}
         />

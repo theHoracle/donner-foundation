@@ -101,13 +101,14 @@ export const Causes: CollectionConfig = {
       type: "array",
       minRows: 1,
       maxRows: 4,
+      required: true,
       labels: {
         singular: "Image",
         plural: "Images",
       },
       fields: [
         {
-          name: "images",
+          name: "image",
           type: "upload",
           relationTo: "media",
           required: true,
