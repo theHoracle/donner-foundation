@@ -8,6 +8,9 @@ import nextBuild from "next/dist/build";
 import path from "path";
 import { nextApp, nextHandler } from "./next-utils";
 import { appRouter } from "./trpc";
+import { paystackWebhookHandler } from "./webhook";
+import { PayloadRequest } from "payload/types";
+import { parse } from "url";
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
@@ -25,12 +28,8 @@ export type WebHookRequest = IncomingMessage & {
 export type ExpressContext = inferAsyncReturnType<typeof createContext>;
 
 const start = async () => {
-  // webhhook for stripe
-  const webHookMiddleware = bodyParser.json({
-    verify: (req: WebHookRequest, _, buffer) => {
-      req.rawBody = buffer;
-    },
-  });
+  
+  app.post("/api/webhooks/paystack", paystackWebhookHandler);
 
   // payload init
   const payload = await getPayloadClient({
@@ -41,6 +40,8 @@ const start = async () => {
       },
     },
   });
+
+ 
 
   //important to build
   if (process.env.NEXT_BUILD) {

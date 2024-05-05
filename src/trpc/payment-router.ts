@@ -49,7 +49,11 @@ export const paymentRouter = router({
                 email: user.email,
                 name: user.email,
                 reference: donation.id,
-                callback_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you?donationId=${donation.id}`
+                callback_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you?donationId=${donation.id}`,
+                metadata: {
+                    userId: user.id,
+                    donationId: donation.id
+                }
             })
             console.log(paystackSession.data)
             console.log(paystackSession.message)

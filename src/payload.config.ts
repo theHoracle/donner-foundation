@@ -8,6 +8,7 @@ import { Media } from "./collections/Media";
 import { Users } from "./collections/Users";
 import { Causes } from "./collections/Causes/Causes";
 import { Donations } from "./collections/Donations";
+import { User } from "./payload-types";
 
 dotenv.config({
   path: path.resolve(__dirname, "../.env"),
@@ -19,7 +20,8 @@ export default buildConfig({
     admin: "/admin",
   },
   admin: {
-    user: "users",
+    user: 'users',
+    inactivityRoute: '/',
     bundler: webpackBundler(),
   },
   rateLimit: {
