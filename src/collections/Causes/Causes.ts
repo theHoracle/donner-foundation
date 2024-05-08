@@ -31,7 +31,7 @@ export const Causes: CollectionConfig = {
     },
     {
       name: "target",
-      label: "Target in USD",
+      label: "Target in Naira",
       min: 50,
       type: "number",
       required: true,

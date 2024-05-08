@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/utils";
-import { cookies } from "next/headers";
-import { ReactNode, useEffect, useState } from "react";
+import { cn } from '@/lib/utils';
+import { cookies } from 'next/headers';
+import { ReactNode, useEffect, useState } from 'react';
 
 interface NavbarScrollHandlerProps {
   children: ReactNode;
@@ -19,10 +19,10 @@ const NavbarScrollHandler = ({ children }: NavbarScrollHandlerProps) => {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -39,13 +39,13 @@ const NavbarScrollHandler = ({ children }: NavbarScrollHandlerProps) => {
   return (
     <div
       className={`sticky z-50 top-0 inset-x-0 h-16 text-gray-700 ${
-        isScrolledDown && "text-white"
+        isScrolledDown && 'text-white'
       }`}
     >
-      <div className="relative overflow-hidden">
+      <div className="relative">
         <div
           className={cn({
-            "absolute inset-0 -z-10 backdrop-blur transition-all border-b border-gray-100":
+            'absolute inset-0 -z-10 backdrop-blur bg-gray-400/60 transition-all border-b border-gray-100':
               isScrolledDown,
           })}
         />

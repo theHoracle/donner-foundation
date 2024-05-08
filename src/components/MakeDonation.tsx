@@ -35,7 +35,7 @@ const MakeDonation = ({causeId}: MakeDonationProps) => {
                 setError(undefined);
             }
         } catch (error) {
-            setError('Only valid number is allowed.')
+            setError('Only valid numbers are allowed.')
             return
             
         }
@@ -72,8 +72,8 @@ const MakeDonation = ({causeId}: MakeDonationProps) => {
     <Input placeholder="₦100.00" value={amount} onChange={handleInputChange}/>
     {error ?? <span className="text-xs text-red-500">{error}</span>}
     <Button disabled={isLoading || !!error} className="flex items-center w-full" >
-        Donate{' '} 
-            {isLoading && <Loader2 className="h-5 w-5 animate-spin" />} 
+        Donate 
+            {isLoading && <Loader2 className="h-5 w-5 ml-1 animate-spin" />} 
             </Button>
     </form>
       

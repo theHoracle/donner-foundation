@@ -1,11 +1,11 @@
-import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { ArrowDown } from "lucide-react";
-import Image from "next/image";
-import Navbar from "@/components/Navbar";
-import Link from "next/link";
-import Paragraph from "./ui/paragraph";
+import MaxWidthWrapper from '@/components/MaxWidthWrapper';
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { ArrowDown } from 'lucide-react';
+import Image from 'next/image';
+import Navbar from '@/components/Navbar';
+import Link from 'next/link';
+import Paragraph from './ui/paragraph';
 
 interface heroProps {
   heroImage?: string;
@@ -15,13 +15,13 @@ interface heroProps {
 }
 const Hero = ({ heroImage, heroText, showButtons, topic }: heroProps) => {
   return (
-    <div className="relative h-screen w-full">
+    <div className="relative md:h-screen w-full">
       <div className="">
         <div>
           <Image
             src={
               heroImage ||
-              "/flat-lay-paper-hand-holding-heart-with-copy-space.jpeg"
+              '/flat-lay-paper-hand-holding-heart-with-copy-space.jpeg'
             }
             alt="Hands"
             fill
@@ -40,22 +40,22 @@ const Hero = ({ heroImage, heroText, showButtons, topic }: heroProps) => {
               </h1>
               {showButtons && (
                 <div className="w-full flex flex-col">
-                  {" "}
-                  <p className="uppercase border-t border-white pr-4 text-right w-full">
+                  {' '}
+                  <p className="uppercase border-t-2 border-red-500 pr-4 text-right w-full">
                     below poverty line
                   </p>
                   <div className="flex items-center justify-start gap-4 py-4">
-                    <Link href="#" className={cn(buttonVariants(), "px-6")}>
+                    <Link href="#" className={cn(buttonVariants(), 'px-6')}>
                       Donate
                     </Link>
                     <Link
-                      href="#"
+                      href="/about-us"
                       className={cn(
-                        "text-primary",
-                        buttonVariants({ variant: "outline" })
+                        'text-primary',
+                        buttonVariants({ variant: 'outline' }),
                       )}
                     >
-                      Discover &rarr;
+                      Learn more &rarr;
                     </Link>
                   </div>
                 </div>

@@ -38,7 +38,7 @@ export const paymentRouter = router({
                 _isPaid: false,
                 causes: cause.id,
                 user: user.id,
-                amount: amountDonated
+                amount: unitAmountDonated
             }
         })
 

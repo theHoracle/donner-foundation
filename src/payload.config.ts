@@ -21,7 +21,6 @@ export default buildConfig({
   },
   admin: {
     user: 'users',
-    inactivityRoute: '/',
     bundler: webpackBundler(),
   },
   rateLimit: {

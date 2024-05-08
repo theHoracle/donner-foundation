@@ -1,6 +1,7 @@
 import PaymentStatus from "@/components/PaymentStatus";
 import { getPayloadClient } from "@/get-payload";
 import { getServerSideUser } from "@/lib/payload-utils";
+import { paystack } from "@/lib/paystack";
 import { formatPrice } from "@/lib/utils";
 import { Cause, User } from "@/payload-types";
 import { cookies } from "next/headers";
@@ -37,6 +38,37 @@ const Page = async ({searchParams}: PageProps) => {
     
     const cause = (donation.causes) as Cause
     const {image} = cause.images[0]
+
+    // for testing purposes only
+    const verifyTrnx = await paystack.transaction.verify(donation.id)
+    if(verifyTrnx.status && !donation._isPaid) {
+       // Update donation info to verify payment on server
+       await payload.update({
+        collection: 'donations',
+        where: {
+            id: {
+                equals: donation.id
+            }
+        },
+        data: {
+            _isPaid: true
+        }
+    })
+
+    // update cause recieved amount to display to users
+    await payload.update({
+        collection: 'causes', 
+        where: {
+            id: {
+                equals: cause.id
+            }
+        },
+        data: {
+            raisedAmount: cause.raisedAmount + donation.amount
+        }
+    })   
+    }
+    
     
 
     return <main className="relative lg:min-h-full">
@@ -71,19 +103,33 @@ const Page = async ({searchParams}: PageProps) => {
               So just chill and we&apos;ll send a confirmation mail soon.😘
             </p>
           )}
-
+        <div className="flex items-center justify-between">
           <div className="mt-16 text-sm font-medium">
-            <div className="text-muted-foreground">Transaction nr.</div>
+            <div className="text-muted-foreground">Transaction number:</div>
             <div className="mt-2 text-gray-900">{donation.id}</div>
           </div>
+
+          <div className="mt-16 text-sm font-medium">
+            <div className="text-muted-foreground">Transaction status:</div>
+            <div className="mt-2  text-gray-900">
+               {/* Payment status */}
+              <PaymentStatus
+                isPaid={donation._isPaid}
+                donationId={donation.id}
+                donationEmail={(donation.user as User).email}
+        />
+            </div>
+          </div>
+        </div>
+
 
           <div className="mt-6 divide-y divide-gray-200 border-t border-gray-200 text-sm font-medium text-muted-foreground">
                 <div className="flex space-x-5 py-6">
                   <div className="relative h-24 min-w-24">
                     {/* add image.url back */}
-                    {typeof image !== "string" && '!image.url' ? (
+                    {typeof image !== "string" && image.url ? (
                         <Image
-                        src='/flat-lay-paper-hand-holding-heart-with-copy-space.jpeg'
+                        src={image.url}
                         alt={`${cause.title} image`}
                         fill
                         className="flex-none rounded-md bg-gray-100 object-cover object-center"
@@ -99,18 +145,13 @@ const Page = async ({searchParams}: PageProps) => {
 
                  
                   <div className="flex-none  font-medium text-gray-900">
-                    {formatPrice(donation.amount)}
+                    {donation.amount}
                   </div>
                   </div>
 
           </div>
           
-          {/* Payment status */}
-          <PaymentStatus
-            isPaid={donation._isPaid}
-            donationId={donation.id}
-            donationEmail={(donation.user as User).email}
-        />
+         
           <div className="m-8 border-t border-gray-200 text-right">
             <Link
               href="/causes"
